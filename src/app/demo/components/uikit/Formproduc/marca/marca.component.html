@@ -1,0 +1,33 @@
+<div class="col-12">
+    <div class="card" [formGroup]="myForm">
+        <h5>Agregar marca</h5>
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-6">
+                <label htmlFor="Marca">Marca:</label>
+                <input 
+                formControlName="marca"
+                pInputText id="Marca" type="text" />
+                <span *ngIf="isValidField('marca')" class="form-text text-danger">
+                    El campo es requerido
+               </span>
+            </div>
+            <div class="field col-12 md:col-6">
+                <label htmlFor="descripcion">Descripcion</label>
+                <input 
+                formControlName="descripcion"
+                pInputText id="descripcion" type="text" />
+                <span *ngIf="isValidField('descripcion')" class="form-text text-danger">
+                    El campo es requerido
+               </span>
+            </div>
+           
+            <div class="col-12 md:col-2">
+                <div class="flex flex-wrap gap-2">
+                    <button 
+                    (click)="onSubmit()"
+                    pButton pRipple label="Guardar"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

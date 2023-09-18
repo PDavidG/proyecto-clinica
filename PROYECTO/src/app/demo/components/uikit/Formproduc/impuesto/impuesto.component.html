@@ -1,0 +1,149 @@
+<div class="col-12">
+    
+    <div class="card">
+        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center mb-3">
+            <h5 class="m-0">Lista de impuestos</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+                <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-success mr-2" label="Agregar" (click)="modalAgregarI()" ></button>
+            </span>
+        </div>
+        <p-table [value]="impuestos" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="header" >
+                <tr>
+                    <th>Impuesto</th>
+                    <th>Descripción</th>
+                    <th>Valor</th>
+                    <th>Opciones</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body"  let-impu>
+                <tr>
+                    <td style="width:32%; min-width: 10rem;" >{{impu.impuesto}}</td>
+                    <td style="width:32%; min-width: 10rem;">{{impu.descripcion}}</td>
+                    <td style="width:32%; min-width: 10rem;">{{impu.valor}}</td>
+                    <td>
+                        <div class="flex">
+                            <button pButton pRipple icon="pi pi-cog" class="p-button-rounded p-button-secondary mr-2" (click)="showModalImpuesto(impu)"></button>
+                            <!--<button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-danger mr-2" (click)="eliminarImpuesto()"></button>-->
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <p-dialog [(visible)]="displayModal"  [modal]="true">
+
+        <div class="card" [formGroup]="myForm" >
+            <h5>Modificar impuesto</h5>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="impuesto">Impuesto</label>
+                    <input 
+                    formControlName="impuesto"
+                    pInputText id="impuesto" type="text" [ngModel]="impuestos1.impuesto" />
+                    <span *ngIf="isValidField('impuesto')" class="form-text text-danger">
+                        El campo es requerido
+                   </span>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="descripcion">Descripcion</label>
+                    <input 
+                    formControlName="descripcion"
+                    pInputText id="descripcion" type="text" [ngModel]="impuestos1.descripcion" />
+                    <span *ngIf="isValidField('descripcion')" class="form-text text-danger">
+                        El campo es requerido
+                   </span>
+                </div>
+                <div class="field col-12">
+                    <label htmlFor="address">Valor</label>
+                    <p-inputNumber 
+                    formControlName="valor"
+                    inputId="integeronly" [ngModel]="impuestos1.valor" > </p-inputNumber> 
+                    <span *ngIf="isValidField('valor')" class="form-text text-danger">
+                        El campo es requerido
+                   </span>
+                </div>
+    
+                <div class="col-12 md:col-10">
+                    <div class="flex flex-wrap gap-2 md:col-2">
+                        <button 
+                        (click)="editarImpuesto()"
+                        pButton pRipple label="Actualizar"></button>
+                    </div>
+
+                    
+                </div>
+                <div class="col-12 md:col-2">
+                    
+
+                    <div class="flex flex-wrap gap-2">
+                        <button 
+                        (click)="confirmDelete()"
+                        pButton pRipple label="Eliminar" class="p-button-danger"></button>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+
+    </p-dialog>
+
+    <p-dialog [(visible)]="displayModalA" [modal]="true">
+
+        <div class="card" [formGroup]="myForm" >
+            <h5>Agregar Impuesto</h5>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="impuesto">Impuesto</label>
+                    <input 
+                    formControlName="impuesto"
+                    pInputText id="impuesto" type="text"/>
+                    <span *ngIf="isValidField('impuesto')" class="form-text text-danger">
+                        El campo es requerido
+                   </span>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="descripcion">Descripcion</label>
+                    <input 
+                    formControlName="descripcion"
+                    pInputText id="descripcion" type="text" />
+                    <span *ngIf="isValidField('descripcion')" class="form-text text-danger">
+                        El campo es requerido
+                   </span>
+                </div>
+                <div class="field col-12">
+                    <label htmlFor="address">Valor</label>
+                    <p-inputNumber 
+                    formControlName="valor"
+                    inputId="integeronly" > </p-inputNumber> 
+                    <span *ngIf="isValidField('valor')" class="form-text text-danger">
+                        El campo es requerido
+                   </span>
+                </div>
+    
+                <div class="col-12 md:col-2">
+                    <div class="flex flex-wrap gap-2">
+                        <button 
+                        (click)="onSubmit()"
+                        pButton pRipple label="Guardar"></button>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+
+    </p-dialog>
+
+    <p-dialog [(visible)]="deleteImpuDial" header="Confirmar" [modal]="true" [style]="{width:'450px'}">
+        <div class="flex align-items-center justify-content-center">
+            <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+            <span *ngIf="impuestos1">Estas Seguro de que quieres eliminar el {{impuestos1.impuesto}} <b>{{impuestos.impuesto}}</b>?</span>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteImpuDial = false"></button>
+            <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="eliminarImpuesto()"></button>
+        </ng-template>
+    </p-dialog>
+</div>
+

@@ -1,0 +1,250 @@
+<div class="grid">
+	
+
+	<div class="col-8" >
+
+		<div class="card px-6 py-6">
+			<h5>Registrar un nuevo producto</h5>
+
+			<div class="p-fluid p-formgrid grid" [formGroup]="myForm">
+
+				<div class="field col-12 md:col-12">
+					<label htmlFor="codigoP">Codigo de Producto:</label>
+					<input
+					formControlName="codigoP"
+					pInputText id="codigoP" type="text" />
+					<span *ngIf="isValidField('codigoP')" class="form-text text-danger">
+						El campo es requerido
+				   </span>
+				</div>
+				<div class="field col-12 md:col-12">
+					<label htmlFor="nombreC">Nombre Comercial:</label>
+					<input 
+					formControlName="nombreC"
+					pInputText id="nombreC" type="text" />
+				</div>
+				<div class="field col-12 md:col-12">
+					<label htmlFor="sustanciaA">Sustancia Activa:</label>
+					<input 
+					formControlName="sustanciaA"
+					pInputText id="sustanciaA" type="text" />
+				</div>
+				<div class="field col-12 md:col-2">
+					<label htmlFor="costoU">Costo_U:</label>
+					<input 
+					formControlName="costo_u" 
+					pInputText id="costoU" type="number" />
+				</div>
+				<div class="field col-12 md:col-2">
+					<label htmlFor="precio1">Precio1:</label>
+					<input 
+					(keyup)="calcular(costoInput.value)"
+					#costoInput
+					[(ngModel)]="precio"
+					formControlName="precio1"
+					pInputText id="precio1" type="number" />
+				</div>
+				<div class="field col-12 md:col-2">
+					<label htmlFor="utilidad1">Utilidad1 %:</label>
+					<input 
+					(keyup)="calcularPrecio(precioInput.value)"
+					#precioInput
+					[(ngModel)]="utilidad"
+					formControlName="utilidad1" 
+					pInputText id="utilidad1" type="number" />
+					
+				</div>
+				<div class="field col-12 md:col-2">
+					<label htmlFor="precio2">Precio2:</label>
+					<input
+					(keyup)="calcular(precioD.value)"
+					#precioD
+					[(ngModel)]="precio2"
+					formControlName="precio2"
+					pInputText id="precio2" type="number" />
+				</div>
+				<div class="field col-12 md:col-2">
+					<label htmlFor="utilidad2">Utilidad2:</label>
+					<input 
+					(keyup)="calcularPrecio(precioInput2.value)"
+					#precioInput2
+					formControlName="utilidad2"
+					[(ngModel)]="utilidad2"
+					pInputText id="utilidad2" type="number" />
+				</div>
+				<div class="field col-12 md:col-2">
+					<label htmlFor="precio3">Precio3:</label>
+					<input 
+					(keyup)="calcular(precioT.value)"
+					#precioT
+					[(ngModel)]="precio3"
+					formControlName="precio3"
+					pInputText id="precio3" type="number" />
+				</div>
+				<div class="field col-12 md:col-3">
+					<label htmlFor="utilidad3">Utilidad3:</label>
+					<input 
+					(keyup)="calcularPrecio(precioInput3.value)"
+					#precioInput3
+					[(ngModel)]="utilidad3"
+					formControlName="utilidad3"
+					pInputText id="utilidad3" type="number" />
+				</div>
+				<div class="field col-12 md:col-3">
+					<label htmlFor="precio4">Precio4:</label>
+					<input 
+					(keyup)="calcular(precioC.value)"
+					#precioC
+					[(ngModel)]="precio4"
+					formControlName="precio4"
+					pInputText id="precio4" type="number" />
+				</div>
+				<div class="field col-12 md:col-3">
+					<label htmlFor="utilidad4">Utilidad4:</label>
+					<input 
+					(keyup)="calcularPrecio(precioInput4.value)"
+					#precioInput4
+					[(ngModel)]="utilidad4"
+					formControlName="utilidad4"
+					pInputText id="utilidad4" type="number" />
+				</div>
+				<div class="field col-12 md:col-3">
+					<label htmlFor="existencia">Existencia:</label>
+					<input 
+					formControlName="existencia"
+					pInputText id="existencia" type="number" />
+				</div>
+				<div class="field col-12 md:col-3">
+					<label htmlFor="unidad">Unidad:</label>
+					<input 
+					formControlName="unidad"
+					pInputText id="unidad" type="text" />
+				</div>
+				<div class="field col-12 md:col-3">
+					<label htmlFor="linea">Linea:</label>
+					<p-dropdown formControlName="linea_id" [options]="lin"  [(ngModel)]="line" optionLabel="linea" optionValue="linea" placeholder="Selecciona una linea" ></p-dropdown>
+				
+				</div>
+				<div class="field col-12 md:col-3">
+					<label htmlFor="marca">Marca:</label>
+					<p-dropdown formControlName="marca_id" [options]="mar" [(ngModel)]="marc" optionLabel="marca" optionValue="marca" placeholder="Selecciona una marca"></p-dropdown>
+				</div>
+				<!-- OTRO NIVEL-->
+				
+                <div class="field col-12 md:col-3">
+					<label htmlFor="impuesto">Impuesto:</label>
+					<p-dropdown  formControlName="impuesto_id" [options]="impu" [(ngModel)]="impus" optionLabel="impuesto" optionValue="impuesto"  placeholder="Seleccione un tipo de impuesto"></p-dropdown>
+					
+				</div>
+                <div class="field col-12 md:col-3">
+					<label htmlFor="minimo">minimo:</label>
+					<input
+					formControlName="minimo"
+					pInputText id="minimo" type="number" />
+				</div>
+                <div class="field col-12 md:col-3">
+					<label htmlFor="maximo">maximo:</label>
+					<input 
+					formControlName="maximo"
+					pInputText id="maximo" type="number" />
+				</div>
+                <div class="field col-12 md:col-3">
+					<label  htmlFor="imagen">Imagen:</label>
+					<input 
+					
+					formControlName="imagen" [(ngModel)]="imag"
+					pInputText  type="text" />
+					
+				</div>
+				<!--<div class="field col-12 md:col-3">
+					<p>Granel:</p>
+					<div class="grid formgrid">
+						<div class="col-12 md:col-4">
+							<div class="field-radiobutton">
+								<p-radioButton name="" value=""  id=""></p-radioButton>
+								<label for="">Si</label>
+							</div>
+						</div>
+						<div class="col-12 md:col-4">
+							<div class="field-radiobutton">
+								<p-radioButton name="" value="" 
+											   id=""></p-radioButton>
+								<label for="">No</label>
+							</div>
+						</div>
+					</div>
+				</div>-->
+				<div class="field col-12 md:col-3">
+					<p>Bloquear:</p>
+					<div class="grid formgrid">
+						<div class="col-12 md:col-4">
+							<div class="field-radiobutton">
+								<p-radioButton name="bloqueado" value="Si"  [(ngModel)]="valor" inputId="valor" formControlName="bloqueado"></p-radioButton>
+								<label for="valor">SI</label>
+							</div>
+						</div>
+						<div class="col-12 md:col-4">
+							<div class="field-radiobutton">
+								<p-radioButton name="bloqueado" value="No" [(ngModel)]="valor" inputId="valor2" formControlName="bloqueado" ></p-radioButton>
+								<label for="valor2">NO</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="field col-12 md:col-3">
+					<p>Granel:</p>
+					<div class="grid formgrid">
+						<div class="col-12 md:col-4">
+							<div class="field-radiobutton">
+								<p-radioButton name="granel" value="SI"  [(ngModel)]="valorG" inputId="valore" formControlName="granel"></p-radioButton>
+								<label for="valore">SI</label>
+							</div>
+						</div>
+						<div class="col-12 md:col-4">
+								<div class="field-radiobutton">
+									<p-radioButton name="granel" value="No" [(ngModel)]="valorG" inputId="valore2" formControlName="granel" ></p-radioButton>
+									<label for="valore2">NO</label>
+								</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="field col-12 md:col-3">
+					<button 
+                    (click)="onSubmit()"
+                    pButton pRipple label="Guardar"></button>
+				</div>
+				
+			</div>
+
+			
+
+		</div>
+	</div>
+
+    <div class="col-4" >
+        <div class="card" >
+            <h5>Subir imagen del producto</h5>
+
+            <p-fileUpload name="files[]" url="http://localhost:8080/baseDatos/upload.php" (onUpload)="onUpload($event)"
+			accept="image/*" [maxFileSize]="1000000" 
+			
+			chooseLabel="Escoger imagen"
+			uploadLabel="Subir imagen"
+			cancelLabel="Cancelar" 
+			previewWidth="200"
+			>
+                <ng-template pTemplate="content">
+                    <label htmlFor="block"></label>
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                    </ul>
+                </ng-template>
+            </p-fileUpload>
+
+			<p-messages></p-messages>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,130 @@
+
+<div class="col-12">
+    
+    <div class="card">
+        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center mb-3">
+            <h5 class="m-0">Lista de lineas</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+                <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-success mr-2" label="Agregar" (click)="modalAgregarL()" ></button>
+            </span>
+        </div>
+        <p-table [value]="lin" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="header" >
+                <tr>
+                    <th>Linea</th>
+                    <th>Descripción</th>
+                    <th>Opciones</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body"  let-line>
+                <tr>
+                    <td style="width:48%; min-width: 10rem;" >{{line.linea}}</td>
+                    <td style="width:48%; min-width: 10rem;">{{line.descripcion}}</td>
+                    <td>
+                        <div class="flex">
+                            <button pButton pRipple icon="pi pi-cog" class="p-button-rounded p-button-secondary mr-2" (click)="showModalLinea(line)"></button>
+                            <!--<button pButton pRipple icon="pi pi-times" class="p-button-rounded p-button-danger mr-2" (click)="eliminarImpuesto()"></button>-->
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <p-dialog [(visible)]="displayUpdate"  [modal]="true">
+
+        <div class="card" [formGroup]="myForm" >
+            <h5>Modificar linea</h5>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="linea">linea</label>
+                    <input 
+                    formControlName="linea"
+                    pInputText id="linea" type="text" [ngModel]="linea1.linea" />
+                    <span *ngIf="isValidField('linea')" class="form-text text-danger">
+                        El campo es requerido
+                   </span>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="descripcion">Descripcion</label>
+                    <input 
+                    formControlName="descripcion"
+                    pInputText id="descripcion" type="text" [ngModel]="linea1.descripcion" />
+                    <span *ngIf="isValidField('descripcion')" class="form-text text-danger">
+                        El campo es requerido
+                   </span>
+                </div>
+    
+                <div class="col-12 md:col-10">
+                    <div class="flex flex-wrap gap-2 md:col-3">
+                        <button 
+                        (click)="editarLinea()"
+                        pButton pRipple label="Actualizar"></button>
+                    </div>
+
+                    
+                </div>
+                <div class="col-12 md:col-2">
+                    
+
+                    <div class="flex flex-wrap gap-2">
+                        <button 
+                        (click)="confirmDelete()"
+                        pButton pRipple label="Eliminar" class="p-button-danger"></button>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+
+    </p-dialog>
+
+    <p-dialog [(visible)]="displayAdd" [modal]="true">
+
+        <div class="card" [formGroup]="myForm" >
+            <h5>Agregar Linea</h5>
+            <div class="p-fluid p-formgrid grid">
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="linea">Linea</label>
+                    <input 
+                    formControlName="linea"
+                    pInputText id="linea" type="text"/>
+                    <span *ngIf="isValidField('linea')" class="form-text text-danger">
+                        El campo es requerido
+                   </span>
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="descripcion">Descripcion</label>
+                    <input 
+                    formControlName="descripcion"
+                    pInputText id="descripcion" type="text" />
+                    <span *ngIf="isValidField('descripcion')" class="form-text text-danger">
+                        El campo es requerido
+                   </span>
+                </div>
+    
+                <div class="col-12 md:col-3">
+                    <div class="flex flex-wrap gap-2">
+                        <button 
+                        (click)="onSubmit()"
+                        pButton pRipple label="Guardar"></button>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+
+    </p-dialog>
+
+    <p-dialog [(visible)]="displayDelete" header="Confirmar" [modal]="true" [style]="{width:'450px'}">
+        <div class="flex align-items-center justify-content-center">
+            <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+            <span *ngIf="linea1">Estas Seguro de que quieres eliminar el impuesto <b>{{linea1.linea}}</b>?</span>
+        </div>
+        <ng-template pTemplate="footer">
+            <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="displayDelete = false"></button>
+            <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="eliminarLinea()"></button>
+        </ng-template>
+    </p-dialog>
+</div>
+

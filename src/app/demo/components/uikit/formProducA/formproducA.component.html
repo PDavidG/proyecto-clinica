@@ -1,0 +1,166 @@
+<div class="col-12">
+
+<div class="card">
+    <!--<div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center mb-3">
+        <h5 class="m-0">Lista de Productos</h5>
+        
+    </div>-->
+    
+
+
+    <p-table [value]="productos"  styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}" >
+        <ng-template pTemplate="caption" >
+        <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center mb-3">
+            <h5 class="m-0">Lista de Productos</h5>
+            <span class="block mt-2 md:mt-0 p-input-icon-left">
+                <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-success mr-2" label="Agregar" routerLink="/uikit/formproduc"  ></button>
+            </span>
+        </div>
+    </ng-template>
+        <ng-template pTemplate="header" >
+            <tr>
+                <th>
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th></th>
+                <th>CodigoP</th>
+                <th>Nombre Comercial</th>
+                <th>Sustancia Activa</th>
+                <th>Linea</th>
+                <th>Imagen</th>
+                <th>Marca</th>
+                <th>Costo_U</th>
+                <th>Precio1</th>
+                <th>Utilidad1</th>
+                <th>Precio2</th>
+                <th>Precio3</th>
+                <th>Precio4</th>
+                <th>Existencia</th>
+                <th>Unidad</th>
+                <th>Impuesto</th>
+                <th>Minimo</th>
+                <th>Maximo</th>
+                <th>Granel</th>
+                <th>Bloqueado</th>
+                <th>Utilidad2</th>
+                <th>Utilidad3</th>
+                <th>Utilidad4</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body"  let-producto>
+            <tr>
+                <td>
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </td>
+        
+                <td style="min-width:4rem;">
+                    <div style="height: 30px; position: relative;" class="speeddial-linear-demo">
+                     <p-speedDial  showIcon="pi pi-cog" [model]="item" direction="right"></p-speedDial>
+                   
+             </div>      
+                </td>
+
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.codigoP}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.nombreC}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.sustanciaA}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.linea_id}}
+                </td>
+                <td style="width:4%; min-width:6rem;"
+                >
+                    <img src="http://localhost:8080/baseDatos/images/{{producto.imagen}}" width="100">
+                    {{producto.imagen}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.marca_id}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.costo_u}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.precio1}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.utilidad1}}%
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.precio2}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.precio3}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.precio4}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.existencia}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.unidad}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.impuesto_id}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.minimo}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.maximo}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.granel}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.bloqueado}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.utilidad2}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.utilidad3}}
+                </td>
+                <td style="width:4%; min-width:6rem;">
+                    {{producto.utilidad4}}
+                </td>
+                
+                
+            </tr>
+
+            <p-dialog [(visible)]="updateImpuDial" header="Confirmar" [modal]="true" [style]="{width:'450px'}" >
+                <div class="flex align-items-center justify-content-center">
+                    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                    <span >Estas Seguro de que quieres <b>modificar</b> el producto   <b>{{producto.nombreC}}</b>?</span>
+                </div>
+                
+                <ng-template  pTemplate="footer" >
+                    <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="updateImpuDial = false"></button>
+                    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" [routerLink]="['/uikit/edit', producto.codigoP]"></button>
+                </ng-template>
+                
+            </p-dialog>
+
+            <p-dialog [(visible)]="deleteImpuDial" header="Confirmar" [modal]="true" [style]="{width:'450px'}" >
+                <div class="flex align-items-center justify-content-center">
+                    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+                    <span >Estas Seguro de que quieres <b>eliminar</b> el producto  <b>{{producto.nombreC}}</b>?</span>
+                </div>
+                
+                <ng-template  pTemplate="footer" >
+                    <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteImpuDial = false"></button>
+                    <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Si" (click)="dajsd(producto)"></button>
+                </ng-template>
+                
+            </p-dialog>
+        </ng-template>
+    </p-table>
+</div>
+
+
+
+</div>
